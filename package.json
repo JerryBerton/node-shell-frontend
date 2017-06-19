@@ -1,0 +1,14 @@
+{
+  "name": "webhool",
+  "version": "1.0.0",
+  "description": "this git webhool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jerryberton",
+  "license": "ISC",
+  "dependencies": {
+    "github-webhook-handler": "^0.6.0"
+  }
+}
