@@ -1,6 +1,6 @@
 var http = require('http')
-var createHandler = require('node-github-webhook')
-var handler = createHandler({ path: '/app', secret: 'appsecret' }) // single handler
+var createHandler = require('github-webhook-handler');
+var handler = createHandler({ path: '/', secret: 'appsecret' }) // single handler
 
 function execFunc(content) {
   var exec = require('child_process').exec
@@ -19,7 +19,9 @@ http.createServer(function (req, res) {
     res.statusCode = 404
     res.end('no such location')
   })
-}).listen(7777)
+}).listen(7777, function() {
+  console.log('webhook is listen ...');
+})
 
 handler.on('error', function (err) {
   console.error('Error:', err.message)
@@ -31,5 +33,5 @@ handler.on('push', function (event) {
     event.payload.repository.name,
     event.payload.ref
   )
-  execFunc('sh ./deploy.sh')
+  //execFunc('sh ./deploy.sh')
 })
