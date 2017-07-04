@@ -1,7 +1,7 @@
 'use staric';
 const  http           = require('http')
 const  createHandler  = require('github-webhook-handler')
-const  handler        = createHandler({ path: '/', secret: 'jerryberton' })
+const  handler        = createHandler({ path: '/', secret: 'dhc-api' })
  function execFunc(content) {
   const exec = require('child_process').exec;
   exec(content, (error, stdout, stderr) => {
