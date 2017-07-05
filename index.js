@@ -2,16 +2,21 @@
 const  http           = require('http')
 const  createHandler  = require('github-webhook-handler')
 const  handler        = createHandler({ path: '/', secret: 'dhc-api' })
- function execFunc(content) {
-  const exec = require('child_process').exec;
-  exec(content, (error, stdout, stderr) => {
-    if (error) {
-      console.error('exec error:' + error)
-      return;
-    }
-    console.log('stdout:' + stdout)
-    console.log('stderr:' + stderr)
+const  child_process  = require('child_process')
+
+function execFunc(content) {
+  let spawn = child_process.spawn(content);
+  spawn.stdout.on('data', (data) => {
+    console.log('stdout: ' + data);
+  })
+  spawn.stderr.on('data', function (data) {
+    console.log('stderr: ' + data);
   });
+
+  spawn.on('close', function (code) {
+    console.log('child process exited with code ' + code);
+  });
+  
 }
 http.createServer((req, res) => {
   handler(req, res, (err) => {
